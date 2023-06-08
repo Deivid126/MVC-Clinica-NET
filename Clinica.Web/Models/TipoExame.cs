@@ -11,6 +11,8 @@ namespace Clinica.Web.Models
         [StringLength(256)]
         public string Descricao { get; set; }
 
+        public IEnumerable<Exame> Exames { get; set; }
+
 
     }
 }

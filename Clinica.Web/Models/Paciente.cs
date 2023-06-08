@@ -20,5 +20,7 @@ namespace Clinica.Web.Models
 
         public string Email { get; set; }
 
+        public IEnumerable<Consulta> Consultas { get; set; }
+
     }
 }
