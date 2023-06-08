@@ -1,0 +1,46 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.navbar-brand span {
+    margin-left: -40px;
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 27px;
+    color: #325CC8;
+}
+.button-home {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-left:15px;
+    text-align:center;
+    width: 70px;
+    height: 35px;
+    background: #325CC8;
+    border-radius: 30px;
+}
+
+.logo {
+    width: 180px;
+    object-fit: cover;
+    height: 80px;
+    left: 77px;
+    margin-top: -25px
+}
+
+body {
+  margin-bottom: 60px;
+}
