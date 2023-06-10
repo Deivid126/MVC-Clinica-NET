@@ -46,10 +46,8 @@ namespace Clinica.Web.Repository
 
         public async Task<IEnumerable<Paciente>> GetAll()
         {
-            var pacientes = await _context.Pacientes.ToListAsync();
+            return await _context.Pacientes.ToListAsync();
 
-            return pacientes;
-                
         }
 
         public async Task<Paciente> GetById(int id)

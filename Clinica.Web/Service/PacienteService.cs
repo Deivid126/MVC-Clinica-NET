@@ -7,6 +7,7 @@ namespace Clinica.Web.Service
     {
         private readonly IPacienteRepository _repository;
 
+
         public PacienteService(IPacienteRepository repository)
         {
             _repository = repository;
@@ -21,9 +22,9 @@ namespace Clinica.Web.Service
 
         public async Task<IEnumerable<Paciente>> GetAll()
         {
-            var pacientes = await _repository.GetAll();
+             return await _repository.GetAll();
 
-            return pacientes;
+         
 
         }
 

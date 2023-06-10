@@ -1,4 +1,7 @@
 using Clinica.Web.Data;
+using Clinica.Web.Interfaces;
+using Clinica.Web.Repository;
+using Clinica.Web.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +14,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
+builder.Services.AddScoped<IPacienteService, PacienteService>();
+builder.Services.AddScoped<IExameRepository, ExameRepository>();
+
 
 var app = builder.Build();
 

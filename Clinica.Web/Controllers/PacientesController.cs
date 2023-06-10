@@ -15,28 +15,33 @@ namespace Clinica.Web.Controllers
     public class PacientesController : Controller
     {
         private readonly IPacienteService _service;
+        private readonly IPacienteRepository _repository;
 
-        public PacientesController(IPacienteService service)
+        public PacientesController(IPacienteService service, IPacienteRepository repository)
         {
             _service = service;
+            _repository = repository;
         }
 
         // GET: Pacientes
+        [HttpGet]
+        [Route("Pacientes")]
         public async Task<IActionResult> Index()
         {
-           var pacientes = await _service.GetAll();
+            IEnumerable<Paciente> pacientes = await  _service.GetAll();
 
-            if(pacientes != null) 
+            if (pacientes != null)
             {
-            
+
                 return View(pacientes);
-            
+
             }
+
 
             return View(null);
         }
 
-        // GET: Pacientes/Details/5
+      
         public async Task<IActionResult> Details(int id)
         {
             var paciente = await _service.GetById(id);
