@@ -84,7 +84,7 @@ namespace Clinica.Web.Repository
                 pacientebanco.Sexo = paciente.Sexo;
                 pacientebanco.Email = paciente.Email;
                 pacientebanco.dataNascimento = paciente.dataNascimento;
-
+                _context.Pacientes.Update(pacientebanco);
                return _context.SaveChanges() > 0;
 
        

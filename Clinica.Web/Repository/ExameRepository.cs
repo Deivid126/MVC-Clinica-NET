@@ -65,6 +65,7 @@ namespace Clinica.Web.Repository
                 examebanco.NomeExame = exame.NomeExame;
                 examebanco.Observacoes = exame.Observacoes;
                 examebanco.TipoExameId = exame.TipoExameId;
+                _context.Exames.Update(examebanco);
                 _context.SaveChanges();
 
                 return examebanco;
