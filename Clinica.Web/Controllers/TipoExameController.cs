@@ -1,4 +1,5 @@
 ﻿using Clinica.Web.Interfaces;
+using Clinica.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clinica.Web.Controllers
@@ -21,6 +22,24 @@ namespace Clinica.Web.Controllers
             return View(tipoexame);
         }
 
+        [HttpGet]
+        public IActionResult Create() 
+        {
+        
+            return View();
+        
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create([Bind("Id,NomeTipoExame,Descricao")] TipoExame tipoexame) 
+        {
+        
+            await _repository.SaveTipoExame(tipoexame);
+
+            return  RedirectToAction("Index");
+        
+        
+        }
 
 
     }

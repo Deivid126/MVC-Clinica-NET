@@ -12,54 +12,54 @@
 <table class="table table-borderless">
     <thead>
         <tr>
-            <th class="col">
+            <th scope="col">
                 @Html.DisplayNameFor((model => model.Nome))
             </th>
-            <th class="col">
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Cpf)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.dataNascimento)
             </th>
-            <th class="col">
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Sexo)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Telefone)
             </th>
-            <th class="col">
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Email)
             </th>
-            <th class="col"></th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td class="row">
+            <td scope="row">
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
-                <td class="row">
+                <td scope="row">
                 @Html.DisplayFor(modelItem => item.Cpf)
             </td>
-                <td class="row">
+                <td scope="row" id="data">
                 @Html.DisplayFor(modelItem => item.dataNascimento)
             </td>
-                <td class="row">
+                <td scope="row">
                 @Html.DisplayFor(modelItem => item.Sexo)
             </td>
-                <td class="row">
+                <td scope="row">
                 @Html.DisplayFor(modelItem => item.Telefone)
             </td>
-                <td class="row">
+                <td scope="row" class="dados-paciente">
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-                <td class="row">
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            <td scope="row" class="button-edit">
+                <a role="button" class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                <a role="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Apagar</a>  
             </td>
         </tr>
 }
     </tbody>
 </table>
+

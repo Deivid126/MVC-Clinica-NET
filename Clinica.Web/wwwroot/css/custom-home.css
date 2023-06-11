@@ -8,11 +8,9 @@
     margin-top:110px;
 }
 
-.name-blue
-{
+.name-blue {
     display: flex;
-    align-items:start;
-   
+    align-items: start;
 }
 .name-blue h2 {
     margin-right: 25px;

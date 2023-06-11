@@ -67,7 +67,20 @@ namespace Clinica.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,Cpf,dataNascimento,Sexo,Telefone,Email")] Paciente paciente)
         {
-            return NotFound();
+            var pacienteexiste = await _repository.GetPacienteByCPF(paciente.Cpf);
+
+            if (!pacienteexiste) 
+            {
+                ModelState.AddModelError("", "CPF já está Cadastrado");
+
+            }
+            else 
+            {
+                await _service.SavePaciente(paciente);
+               
+            }
+
+            return View();
         }
 
         // GET: Pacientes/Edit/5

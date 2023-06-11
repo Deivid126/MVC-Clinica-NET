@@ -7,8 +7,10 @@ namespace Clinica.Web.Models
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name ="Node do Exame")]
         [StringLength(100)]
         public string NomeExame { get; set; }
+        [Display(Name ="Observações")]
         [StringLength(1000)]
         public string Observacoes { get; set; }
 

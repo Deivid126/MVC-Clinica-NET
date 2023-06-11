@@ -6,8 +6,10 @@ namespace Clinica.Web.Models
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name ="Nome do Tipo de Exame")]
         [StringLength(100)]
         public string NomeTipoExame { get; set; }
+        [Display(Name = "Descrição do Exame")]
         [StringLength(256)]
         public string Descricao { get; set; }
 

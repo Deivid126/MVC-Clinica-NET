@@ -1,5 +1,6 @@
 ﻿using Clinica.Web.Interfaces;
 using Clinica.Web.Models;
+using Clinica.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clinica.Web.Controllers
@@ -7,10 +8,11 @@ namespace Clinica.Web.Controllers
     public class ExameController : Controller
     {
         private readonly IExameRepository _repository;
+        private readonly ITipoExameRepository tipoexamerepository;
 
-        public ExameController(IExameRepository repository) 
+        public ExameController(IExameRepository repository, ITipoExameRepository tipoExame) 
         {
-        
+            tipoexamerepository = tipoExame;
             _repository = repository;
         
         }
@@ -24,11 +26,29 @@ namespace Clinica.Web.Controllers
         
         }
 
+        public async Task<IActionResult> Create() 
+        {
+            var tiposexames = await tipoexamerepository.GetAll();
+
+            var viewModel = new CreateExameModel
+            {
+                TipoExame = tiposexames
+            };
+
+            return View(viewModel);
+
+
+        }
+
         [HttpPost]
-        public async Task<ActionResult> Create(Exame consulta) 
+        public async Task<ActionResult> Create([Bind("Id,NomeExame,Observacoes,TipoExameId")] Exame exame) 
         {
 
-            return null;
+            await _repository.SaveExame(exame);
+
+            return RedirectToAction("Index");
+            
+
                     
         }
 

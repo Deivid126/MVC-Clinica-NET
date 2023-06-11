@@ -18,6 +18,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
 builder.Services.AddScoped<IPacienteService, PacienteService>();
 builder.Services.AddScoped<IExameRepository, ExameRepository>();
+builder.Services.AddScoped<ITipoExameRepository, TipoExameRepository>();
+builder.Services.AddScoped<IConsultaRepository,ConsultaRepository>();
 
 
 var app = builder.Build();
