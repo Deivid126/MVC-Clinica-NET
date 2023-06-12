@@ -10,7 +10,7 @@
 
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a role="button" class="btn btn-success" asp-action="Create">Cadastrar Novo Exame</a>
 </p>
 
 <table class="table table-borderless">
@@ -24,7 +24,7 @@
                 @Html.DisplayNameFor(model => model.Observacoes)
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.TipoExameId)
+                @Html.DisplayNameFor(model => model.TipoExame.NomeTipoExame)
             </th>
             <th scope="col"></th>
         </tr>
@@ -40,7 +40,7 @@
                     @Html.DisplayFor(modelItem => item.Observacoes)
                 </td>
                 <td scope="row">
-                    @Html.DisplayFor(modelItem => item.TipoExameId)
+                    @Html.DisplayFor(modelItem => item.TipoExame.NomeTipoExame)
                 </td>
                 <td scope="row" class="button-edit">
                     <a role="button" class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id">Editar</a>

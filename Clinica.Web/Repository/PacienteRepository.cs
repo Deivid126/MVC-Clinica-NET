@@ -92,5 +92,14 @@ namespace Clinica.Web.Repository
 
             return false;
         }
+
+        public async Task<IEnumerable<Paciente>> GetByNameOrCPF(string termo)
+        {
+            var resultados = await _context.Pacientes
+              .Where(p => p.Nome.Contains(termo) || p.Cpf.Contains(termo))
+              .ToListAsync();
+
+            return resultados;
+        }
     }
 }

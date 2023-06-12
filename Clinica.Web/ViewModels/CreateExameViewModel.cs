@@ -2,7 +2,7 @@
 
 namespace Clinica.Web.ViewModels
 {
-    public class CreateExameModel
+    public class CreateExameViewModel
     {
         public Exame Exame { get; set; }
         public IEnumerable<TipoExame> TipoExame { get; set;}

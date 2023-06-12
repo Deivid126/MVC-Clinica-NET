@@ -22,12 +22,13 @@ html {
     color: #325CC8;
 }
 .button-home {
+
     display:flex;
     justify-content:center;
     align-items:center;
     margin-left:15px;
     text-align:center;
-    width: 70px;
+    width: auto;
     height: 35px;
     background: #325CC8;
     border-radius: 30px;

@@ -6,6 +6,7 @@ namespace Clinica.Web.Interfaces
     {
         Task<Paciente> GetById(int id);
 
+        Task<IEnumerable<Paciente>> GetByNameOrCPF(string termo);
         Task<bool> GetPacienteByCPF(string cpf);
         Task<IEnumerable<Paciente>> GetAll();
 

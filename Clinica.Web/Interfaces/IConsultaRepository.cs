@@ -7,6 +7,7 @@ namespace Clinica.Web.Interfaces
 
         Task<Consulta> GetConsultaById(Guid id);
 
+
         Task<ICollection<Consulta>> GetAll();
 
         Task<bool> DeleteConsultaById(Guid id);

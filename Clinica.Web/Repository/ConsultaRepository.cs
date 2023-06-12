@@ -31,7 +31,7 @@ namespace Clinica.Web.Repository
 
         public async Task<ICollection<Consulta>> GetAll()
         {
-            return await _context.Consultas.ToListAsync();
+            return await _context.Consultas.Include("Paciente").Include("Exame").ToListAsync();
         }
 
         public async Task<Consulta> GetConsultaById(Guid id)

@@ -30,7 +30,7 @@ namespace Clinica.Web.Controllers
         {
             var tiposexames = await tipoexamerepository.GetAll();
 
-            var viewModel = new CreateExameModel
+            var viewModel = new CreateExameViewModel
             {
                 TipoExame = tiposexames
             };

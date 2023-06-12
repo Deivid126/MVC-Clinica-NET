@@ -2,12 +2,12 @@
 
 namespace Clinica.Web.ViewModels
 {
-    public class CreateConsultaModel
+    public class CreateConsultaViewModel
     {
         public Consulta Consulta { get; set; }
 
         public IEnumerable<Exame> Exames { get; set; }
 
-        public ICollection<Paciente> Paciente { get; set;}
+        public IEnumerable<Paciente> Paciente { get; set;}
     }
 }

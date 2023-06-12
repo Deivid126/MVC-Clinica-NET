@@ -30,7 +30,7 @@ namespace Clinica.Web.Repository
 
         public async Task<IEnumerable<Exame>> GetAll()
         {
-            var exames = await _context.Exames.ToListAsync();
+            var exames = await _context.Exames.Include("TipoExame").ToListAsync();
 
             return exames;
         }

@@ -1,0 +1,111 @@
+﻿@model Clinica.Web.ViewModels.CreateConsultaViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h4>Exame</h4>
+<hr />
+<div class="row">
+
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Consulta.DataConsulta" class="control-label"></label>
+                <input asp-for="Consulta.DataConsulta" class="form-control" />
+                <span asp-validation-for="Consulta.DataConsulta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Consulta.PacienteId" class="control-label"></label>
+                <input asp-for="Consulta.PacienteId" type="text" id="termoPesquisa" placeholder="Digite o nome ou CPF do paciente" />
+                <span asp-validation-for="Consulta.PacienteId" class="text-danger"></span>
+                <div id="resultadoBusca"></div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Consulta.ExameId" class="control-label"></label>
+                <select asp-for="Consulta.ExameId" asp-items="@(new SelectList(Model.Exames, "Id", "NomeExame"))" class="form-control">
+                    <option value="">-- Selecione um Exame --</option>
+                </select>
+                <span asp-validation-for="Consulta.ExameId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <img src="~/img/form-image.png">
+    </div>
+</div>
+
+<div>
+    <a role="button" class="btn btn-dark" asp-action="Index">Voltar para Lista de Consultas</a>
+</div>
+
+
+<style>
+    .col-md-6 img {
+        width: 680px;
+        height: 530px;
+    }
+
+    .btn-primary {
+        margin-top: 12px;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#termoPesquisa').on('input', function () {
+                var termoPesquisa = $(this).val();
+
+                if (termoPesquisa.length >= 3) { 
+                    $.ajax({
+                        url: 'BuscaDinamica',
+                        type: 'GET',
+                        data: { termoPesquisa: termoPesquisa },
+                        success: function (data) {
+                            exibirResultados(data);
+                            console.log(data);
+                        }
+                    });
+                } else {
+                    $('#resultadoBusca').empty(); 
+                }
+            });
+        });
+
+        function exibirResultados(resultados) {
+            var container = $('#resultadoBusca');
+
+           
+            container.empty();
+            console.log(resultados);
+          
+            if (resultados.length > 0) {
+               
+                var lista = $('<ul>');
+
+             
+                $.each(resultados, function (index, resultado) {
+                    var item = $('<li>').text(resultado.nome + ' - ' + resultado.cpf);
+                    lista.append(item);
+                });
+
+               
+                container.append(lista);
+            } else {
+              
+                container.text('Nenhum resultado encontrado.');
+            }
+        }
+    </script>
+
+}

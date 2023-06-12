@@ -77,10 +77,16 @@ namespace Clinica.Web.Controllers
             else 
             {
                 await _service.SavePaciente(paciente);
-               
-            }
+                return RedirectToAction("Index");
 
-            return View();
+            }
+            
+            
+           return View();
+
+            
+
+           
         }
 
         // GET: Pacientes/Edit/5

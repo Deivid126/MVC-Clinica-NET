@@ -1,4 +1,4 @@
-﻿@model Clinica.Web.ViewModels.CreateExameModel
+﻿@model Clinica.Web.ViewModels.CreateExameViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -41,7 +41,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a role="button" class="btn btn-dark" asp-action="Index">Voltar para Lista de Exames</a>
 </div>
 
 
@@ -49,6 +49,10 @@
     .col-md-6 img {
         width: 680px;
         height: 530px;
+    }
+
+    .btn-primary {
+        margin-top: 12px;
     }
 </style>
 
