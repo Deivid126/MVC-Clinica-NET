@@ -9,6 +9,7 @@ using Clinica.Web.Data;
 using Clinica.Web.Models;
 using Clinica.Web.Interfaces;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 namespace Clinica.Web.Controllers
 {
@@ -30,6 +31,7 @@ namespace Clinica.Web.Controllers
         {
             IEnumerable<Paciente> pacientes = await  _service.GetAll();
 
+         
             if (pacientes != null)
             {
 
@@ -40,8 +42,15 @@ namespace Clinica.Web.Controllers
 
             return View(null);
         }
+        [HttpGet]
+        public bool IsValidEmail(string email)
+        {
+            // Expressão regular para validar o e-mail
+            string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
 
-      
+            // Verifica se o e-mail corresponde ao padrão da expressão regular
+            return Regex.IsMatch(email, pattern);
+        }
         public async Task<IActionResult> Details(int id)
         {
             var paciente = await _service.GetById(id);
@@ -69,6 +78,7 @@ namespace Clinica.Web.Controllers
         {
             var pacienteexiste = await _repository.GetPacienteByCPF(paciente.Cpf);
 
+
             if (!pacienteexiste) 
             {
                 ModelState.AddModelError("", "CPF já está Cadastrado");
@@ -89,32 +99,31 @@ namespace Clinica.Web.Controllers
            
         }
 
-        // GET: Pacientes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            return NotFound();
+            var paciente = await _repository.GetById(id);
+
+            return View(paciente);
         }
 
-       
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Cpf,dataNascimento,Sexo,Telefone,Email")] Paciente paciente)
         {
-            return NotFound();
+            await _repository.UpdatePaciente(paciente, id);
+            return RedirectToAction("Index");
         }
 
         // GET: Pacientes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return NotFound();
-        }
+            await _repository.DeletePaciente(id);
 
-        // POST: Pacientes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            return NotFound();
+            return RedirectToAction("Index");
 
         }
+
+        
     }
 }

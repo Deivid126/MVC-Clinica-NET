@@ -19,8 +19,8 @@ namespace Clinica.Web.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Cpf = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    dataNascimento = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Sexo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    dataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Sexo = table.Column<int>(type: "int", nullable: false),
                     Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -51,7 +51,7 @@ namespace Clinica.Web.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NomeExame = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Observacoes = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    TipoExameId = table.Column<int>(type: "int", nullable: true)
+                    TipoExameId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,7 +60,8 @@ namespace Clinica.Web.Migrations
                         name: "FK_Exames_TiposExames_TipoExameId",
                         column: x => x.TipoExameId,
                         principalTable: "TiposExames",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,9 +69,9 @@ namespace Clinica.Web.Migrations
                 columns: table => new
                 {
                     Protocolo = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PacienteId = table.Column<int>(type: "int", nullable: true),
-                    ExameId = table.Column<int>(type: "int", nullable: true),
-                    DataConsulta = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    PacienteId = table.Column<int>(type: "int", nullable: false),
+                    ExameId = table.Column<int>(type: "int", nullable: false),
+                    DataConsulta = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,12 +80,14 @@ namespace Clinica.Web.Migrations
                         name: "FK_Consultas_Exames_ExameId",
                         column: x => x.ExameId,
                         principalTable: "Exames",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Consultas_Pacientes_PacienteId",
                         column: x => x.PacienteId,
                         principalTable: "Pacientes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

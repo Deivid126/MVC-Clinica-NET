@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinica.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230608210929_InitialCreate")]
+    [Migration("20230613040139_Initial-Create")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -32,12 +32,15 @@ namespace Clinica.Web.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("DataConsulta")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("ExameId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("PacienteId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Protocolo");
@@ -68,6 +71,7 @@ namespace Clinica.Web.Migrations
                         .HasColumnType("nvarchar(1000)");
 
                     b.Property<int?>("TipoExameId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -98,15 +102,15 @@ namespace Clinica.Web.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Sexo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Sexo")
+                        .HasColumnType("int");
 
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("dataNascimento")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -141,11 +145,15 @@ namespace Clinica.Web.Migrations
                 {
                     b.HasOne("Clinica.Web.Models.Exame", "Exame")
                         .WithMany()
-                        .HasForeignKey("ExameId");
+                        .HasForeignKey("ExameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Clinica.Web.Models.Paciente", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId");
+                        .WithMany("Consultas")
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Exame");
 
@@ -155,10 +163,22 @@ namespace Clinica.Web.Migrations
             modelBuilder.Entity("Clinica.Web.Models.Exame", b =>
                 {
                     b.HasOne("Clinica.Web.Models.TipoExame", "TipoExame")
-                        .WithMany()
-                        .HasForeignKey("TipoExameId");
+                        .WithMany("Exames")
+                        .HasForeignKey("TipoExameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("TipoExame");
+                });
+
+            modelBuilder.Entity("Clinica.Web.Models.Paciente", b =>
+                {
+                    b.Navigation("Consultas");
+                });
+
+            modelBuilder.Entity("Clinica.Web.Models.TipoExame", b =>
+                {
+                    b.Navigation("Exames");
                 });
 #pragma warning restore 612, 618
         }

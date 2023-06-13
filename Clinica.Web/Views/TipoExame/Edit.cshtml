@@ -1,0 +1,56 @@
+﻿@model Clinica.Web.Models.TipoExame
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<h4>Exame Editar</h4>
+<hr />
+<div class="row">
+
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NomeTipoExame" class="control-label"></label>
+                <input asp-for="NomeTipoExame" class="form-control" />
+                <span asp-validation-for="NomeTipoExame" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label"></label>
+                <input asp-for="Descricao" class="form-control" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <img src="~/img/form-image.png">
+    </div>
+</div>
+
+<div>
+    <a role="button" class="btn btn-dark" asp-action="Index">Voltar para Lista de Tipo de Exames</a>
+</div>
+
+
+<style>
+    .col-md-6 img {
+        width: 680px;
+        height: 530px;
+    }
+
+    .btn-primary {
+        margin-top: 12px;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+
+}
+

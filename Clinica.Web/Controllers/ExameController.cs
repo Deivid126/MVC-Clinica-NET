@@ -39,6 +39,33 @@ namespace Clinica.Web.Controllers
 
 
         }
+        [HttpGet]
+        public async Task<ActionResult> Edit(int id) 
+        {
+        
+            var exame = await _repository.GetById(id);
+            var tiposexames = await tipoexamerepository.GetAll();
+
+            var viewModel = new CreateExameViewModel
+            {
+                TipoExame = tiposexames,
+                Exame = exame
+            };
+
+            return View(viewModel);
+        
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(int id, [Bind("Id,NomeExame,Observacoes,TipoExameId")] Exame exame) 
+        {
+
+            await _repository.Update(exame, id);
+
+            return RedirectToAction("Index");
+
+        }
 
         [HttpPost]
         public async Task<ActionResult> Create([Bind("Id,NomeExame,Observacoes,TipoExameId")] Exame exame) 
@@ -50,6 +77,16 @@ namespace Clinica.Web.Controllers
             
 
                     
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Delete(int id) 
+        {
+        
+        
+            await _repository.DeleteExame(id);
+            return RedirectToAction("Index");
+        
         }
 
 

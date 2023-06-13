@@ -29,12 +29,15 @@ namespace Clinica.Web.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("DataConsulta")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("ExameId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("PacienteId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Protocolo");
@@ -43,7 +46,7 @@ namespace Clinica.Web.Migrations
 
                     b.HasIndex("PacienteId");
 
-                    b.ToTable("Consultas", (string)null);
+                    b.ToTable("Consultas");
                 });
 
             modelBuilder.Entity("Clinica.Web.Models.Exame", b =>
@@ -65,13 +68,14 @@ namespace Clinica.Web.Migrations
                         .HasColumnType("nvarchar(1000)");
 
                     b.Property<int?>("TipoExameId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TipoExameId");
 
-                    b.ToTable("Exames", (string)null);
+                    b.ToTable("Exames");
                 });
 
             modelBuilder.Entity("Clinica.Web.Models.Paciente", b =>
@@ -95,20 +99,20 @@ namespace Clinica.Web.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Sexo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Sexo")
+                        .HasColumnType("int");
 
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("dataNascimento")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pacientes", (string)null);
+                    b.ToTable("Pacientes");
                 });
 
             modelBuilder.Entity("Clinica.Web.Models.TipoExame", b =>
@@ -131,18 +135,22 @@ namespace Clinica.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TiposExames", (string)null);
+                    b.ToTable("TiposExames");
                 });
 
             modelBuilder.Entity("Clinica.Web.Models.Consulta", b =>
                 {
                     b.HasOne("Clinica.Web.Models.Exame", "Exame")
                         .WithMany()
-                        .HasForeignKey("ExameId");
+                        .HasForeignKey("ExameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Clinica.Web.Models.Paciente", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId");
+                        .WithMany("Consultas")
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Exame");
 
@@ -152,10 +160,22 @@ namespace Clinica.Web.Migrations
             modelBuilder.Entity("Clinica.Web.Models.Exame", b =>
                 {
                     b.HasOne("Clinica.Web.Models.TipoExame", "TipoExame")
-                        .WithMany()
-                        .HasForeignKey("TipoExameId");
+                        .WithMany("Exames")
+                        .HasForeignKey("TipoExameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("TipoExame");
+                });
+
+            modelBuilder.Entity("Clinica.Web.Models.Paciente", b =>
+                {
+                    b.Navigation("Consultas");
+                });
+
+            modelBuilder.Entity("Clinica.Web.Models.TipoExame", b =>
+                {
+                    b.Navigation("Exames");
                 });
 #pragma warning restore 612, 618
         }

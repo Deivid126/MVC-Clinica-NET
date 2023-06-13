@@ -1,0 +1,65 @@
+﻿@model Clinica.Web.ViewModels.CreateExameViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+
+<h4>Exame</h4>
+<hr />
+<div class="row">
+
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Exame.NomeExame" class="control-label"></label>
+                <input asp-for="Exame.NomeExame" class="form-control" />
+                <span asp-validation-for="Exame.NomeExame" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Exame.Observacoes" class="control-label"></label>
+                <input asp-for="Exame.Observacoes" class="form-control" />
+                <span asp-validation-for="Exame.Observacoes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Exame.TipoExameId" class="control-label"></label>
+                <select asp-for="Exame.TipoExameId" asp-items="@(new SelectList(Model.TipoExame, "Id", "NomeTipoExame"))" class="form-control">
+                    <option value="">-- Selecione um Tipo de Exame --</option>
+                </select>
+                <span asp-validation-for="Exame.TipoExameId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <img src="~/img/form-image.png">
+    </div>
+</div>
+
+<div>
+    <a role="button" class="btn btn-dark" asp-action="Index">Voltar para Lista de Exames</a>
+</div>
+
+
+<style>
+    .col-md-6 img {
+        width: 680px;
+        height: 530px;
+    }
+
+    .btn-primary {
+        margin-top: 12px;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+
+}

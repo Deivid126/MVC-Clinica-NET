@@ -40,6 +40,38 @@ namespace Clinica.Web.Controllers
         
         
         }
+        [HttpGet]
+        public async Task<ActionResult> Delete(int id) 
+        {
+            
+            await _repository.DeleteTipoExameById(id);
+
+            return RedirectToAction("Index");
+        
+        }
+        [HttpGet]
+        public async Task<ActionResult> Edit(int id)
+        {
+
+           var tipoexame =  await _repository.GetById(id);
+
+            return View(tipoexame);
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(int id, [Bind("Id,NomeTipoExame,Descricao")] TipoExame tipoexame) 
+        {
+
+
+            await _repository.UpdateById(tipoexame, id);
+            return RedirectToAction("Index");
+        
+        
+        }
+
+
+
 
 
     }

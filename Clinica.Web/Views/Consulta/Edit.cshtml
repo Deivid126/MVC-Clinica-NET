@@ -1,16 +1,16 @@
 ﻿@model Clinica.Web.ViewModels.CreateConsultaViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Editar";
 }
 
 
-<h4>Consulta</h4>
+<h4>Consulta Editar</h4>
 <hr />
 <div class="row">
 
     <div class="col-md-6">
-        <form id="form-consulta" asp-action="Create">
+        <form id="form-consulta" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Consulta.DataConsulta" class="control-label"></label>
@@ -33,7 +33,7 @@
                 <span asp-validation-for="Consulta.ExameId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -48,15 +48,16 @@
 
 
 <style>
-    .busca select{
-        border:none;
+    .busca select {
+        border: none;
         width: 400px;
     }
-    .busca{
-        display:flex;
-        flex-direction:column;
+
+    .busca {
+        display: flex;
+        flex-direction: column;
     }
-    
+
     .col-md-6 img {
         width: 680px;
         height: 530px;
@@ -76,34 +77,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-   
+
     <script>
 
         $(document).ready(function () {
 
 
             $('#form-consulta').submit(function (event) {
-                
+
                 var selectedDate = new Date($('#dataInput').val());
 
-              
+
                 var currentDate = new Date();
 
-               
+
                 if (selectedDate < currentDate) {
-                   
+
                     $('#dataInput').addClass('is-invalid');
                     $('#mensagemErroData').text('A data não pode ser menor que a data atual.');
 
-                  
+
                     event.preventDefault();
                 }
             });
 
-
+            var urlbusca = '@Url.Action("BuscaDinamica", "Consulta")';
             $('#resultados').select2({
                 ajax: {
-                    url: 'BuscaDinamica',
+                    url: urlbusca,
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
@@ -123,7 +124,7 @@
                     if (data.loading) {
                         return data.nome;
                     }
-                    var markup =  data.nome  ;
+                    var markup = data.nome;
                     return markup;
                 },
                 templateSelection: function (data) {
